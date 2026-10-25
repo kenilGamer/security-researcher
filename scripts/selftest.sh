@@ -31,7 +31,7 @@ valid_json() { # description, text
 }
 
 echo "1. syntax"
-for f in detect-stack.sh check-tool-availability.sh run-static-scans.sh selftest.sh check-runtime-inventory.sh check-dependency-advisories.sh check-supply-chain-indicators.sh vps-readonly-triage.sh selftest-threat-intel.sh; do
+for f in detect-stack.sh check-tool-availability.sh run-static-scans.sh selftest.sh resolve-scope.sh selftest-scope.sh check-runtime-inventory.sh check-dependency-advisories.sh check-supply-chain-indicators.sh vps-readonly-triage.sh selftest-threat-intel.sh; do
   bash -n "$HERE/$f" 2>/dev/null; check "bash -n $f" 0 $?
 done
 

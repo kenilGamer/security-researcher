@@ -49,6 +49,8 @@ security-researcher/
     threat-intelligence.md      research protocol, sources, finding format, feed format, intelligence brief
     vps-triage.md               read-only server triage, interpretation, evidence preservation
   scripts/
+    resolve-scope.sh            validates the scope argument; bounded repo-local discovery (exit 3/4 = ask the user)
+    selftest-scope.sh           regression tests for scope resolution
     detect-stack.sh             read-only stack/entry-point inventory (--json)
     check-tool-availability.sh  which scanners exist; --require for CI
     run-static-scans.sh         run installed scanners read-only; gaps are never passes
