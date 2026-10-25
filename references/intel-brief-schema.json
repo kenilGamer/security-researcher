@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "security-intelligence-brief-1.0",
+  "title": "Security Intelligence Brief",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "research_timestamp",
+    "web_access",
+    "scope",
+    "inventory",
+    "findings",
+    "sources",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "research_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC time from the environment clock when research was done."
+    },
+    "web_access": {
+      "enum": [
+        "full",
+        "partial",
+        "none"
+      ],
+      "description": "none means the brief is NOT current intelligence."
+    },
+    "freshness_window_hours": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "included",
+        "excluded"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "inventory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "version",
+          "evidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "component": {
+            "type": "string"
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "description": "Where the version was read from."
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "identifiers",
+          "dates",
+          "affected",
+          "exploitation_status",
+          "sources",
+          "state",
+          "severity",
+          "confidence",
+          "recommended_action",
+          "verification",
+          "uncertainty"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^TI-[0-9]{4}-[0-9]{3}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dates": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "disclosed": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "published": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "last_updated": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "kev_added": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fix_released": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "affected": {
+            "type": "string"
+          },
+          "fixed_or_mitigation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exploitation_status": {
+            "enum": [
+              "confirmed-in-the-wild",
+              "vendor-reported",
+              "suspected",
+              "unknown"
+            ]
+          },
+          "exploitation_source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "url",
+                "published"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "published": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "primary": {
+                  "type": "boolean"
+                },
+                "establishes": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "stack_relevance": {
+            "type": "string"
+          },
+          "exposure_prerequisites": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "confirmed-affected",
+              "potentially-affected",
+              "not-affected-verified",
+              "no-match-in-sources-checked",
+              "unable-to-determine"
+            ]
+          },
+          "severity": {
+            "type": "object",
+            "required": [
+              "rating",
+              "reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rating": {
+                "enum": [
+                  "critical",
+                  "high",
+                  "medium",
+                  "low",
+                  "info"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "confidence": {
+            "type": "object",
+            "required": [
+              "rating",
+              "reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rating": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "recommended_action": {
+            "type": "string"
+          },
+          "urgency": {
+            "enum": [
+              "now",
+              "this-week",
+              "next-release",
+              "monitor"
+            ]
+          },
+          "verification": {
+            "type": "string"
+          },
+          "uncertainty": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "published"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "published": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "scripts_run": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "exit_code"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

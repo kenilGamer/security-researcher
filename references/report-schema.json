@@ -3,40 +3,120 @@
   "$id": "security-researcher-report-1.0",
   "title": "Security Researcher report",
   "type": "object",
-  "required": ["schemaVersion", "generatedAt", "mode", "scope", "tools", "testsRun", "findings", "limitations"],
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "mode",
+    "scope",
+    "tools",
+    "testsRun",
+    "findings",
+    "limitations"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schemaVersion": { "const": "1.0" },
-    "generatedAt": { "type": "string", "format": "date-time" },
-    "mode": { "enum": ["quick", "deep", "pre-release", "verify", "fix", "ci"] },
-    "summary": { "type": "string", "description": "Plain-language headline result." },
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "mode": {
+      "enum": [
+        "quick",
+        "deep",
+        "pre-release",
+        "verify",
+        "fix",
+        "ci",
+        "threat-intel",
+        "vps-triage"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Plain-language headline result."
+    },
     "scope": {
       "type": "object",
-      "required": ["repository", "included", "excluded"],
+      "required": [
+        "repository",
+        "included",
+        "excluded"
+      ],
       "additionalProperties": false,
       "properties": {
-        "repository": { "type": "string" },
-        "commit": { "type": "string" },
-        "branch": { "type": "string" },
-        "included": { "type": "array", "items": { "type": "string" } },
-        "excluded": { "type": "array", "items": { "type": "string" } },
-        "authorisation": { "type": "string", "description": "Who authorised the assessment and how." },
-        "environmentsTouched": { "type": "array", "items": { "type": "string" } }
+        "repository": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorisation": {
+          "type": "string",
+          "description": "Who authorised the assessment and how."
+        },
+        "environmentsTouched": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "tools": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "status"],
+        "required": [
+          "name",
+          "status"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": { "type": "string" },
-          "version": { "type": "string" },
-          "command": { "type": "string" },
-          "status": { "enum": ["ran", "ran-with-findings", "skipped-missing", "skipped-network-not-allowed", "skipped-not-applicable", "error", "timeout"] },
-          "alerts": { "type": "integer", "minimum": 0 },
-          "notes": { "type": "string" }
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ran",
+              "ran-with-findings",
+              "skipped-missing",
+              "skipped-network-not-allowed",
+              "skipped-not-applicable",
+              "error",
+              "timeout"
+            ]
+          },
+          "alerts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "notes": {
+            "type": "string"
+          }
         }
       }
     },
@@ -44,16 +124,41 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["command", "result"],
+        "required": [
+          "command",
+          "result"
+        ],
         "additionalProperties": false,
         "properties": {
-          "command": { "type": "string" },
-          "environment": { "type": "string" },
-          "result": { "enum": ["pass", "fail", "not-run", "blocked"] },
-          "passed": { "type": "integer", "minimum": 0 },
-          "failed": { "type": "integer", "minimum": 0 },
-          "skipped": { "type": "integer", "minimum": 0 },
-          "notes": { "type": "string" }
+          "command": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string"
+          },
+          "result": {
+            "enum": [
+              "pass",
+              "fail",
+              "not-run",
+              "blocked"
+            ]
+          },
+          "passed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "failed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "notes": {
+            "type": "string"
+          }
         }
       }
     },
@@ -61,66 +166,221 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "assets": { "type": "array", "items": { "type": "string" } },
-        "actors": { "type": "array", "items": { "type": "string" } },
-        "trustBoundaries": { "type": "array", "items": { "type": "string" } },
-        "abuseCases": { "type": "array", "items": { "type": "string" } },
-        "assumptions": { "type": "array", "items": { "type": "string" } }
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trustBoundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "abuseCases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "findings": {
       "type": "array",
-      "items": { "$ref": "#/$defs/finding" }
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
     },
-    "limitations": { "type": "array", "items": { "type": "string" } },
-    "nextActions": { "type": "array", "items": { "type": "string" } },
-    "releaseBlocking": { "type": "array", "items": { "type": "string" }, "description": "Finding ids that block a release under the configured policy." }
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nextActions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "releaseBlocking": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Finding ids that block a release under the configured policy."
+    }
   },
   "$defs": {
     "finding": {
       "type": "object",
-      "required": ["id", "title", "classification", "severity", "confidence", "status", "affected", "remediation", "regressionTest"],
+      "required": [
+        "id",
+        "title",
+        "classification",
+        "severity",
+        "confidence",
+        "status",
+        "affected",
+        "remediation",
+        "regressionTest"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string", "pattern": "^SR-[0-9]{4}-[0-9]{3,}$" },
-        "title": { "type": "string" },
-        "classification": { "type": "string" },
-        "cwe": { "type": "array", "items": { "type": "string", "pattern": "^CWE-[0-9]+$" } },
-        "owasp": { "type": "string" },
-        "severity": { "enum": ["Critical", "High", "Medium", "Low", "Info"] },
-        "severityRationale": { "type": "string" },
-        "cvssVector": { "type": "string" },
-        "confidence": { "enum": ["High", "Medium", "Low"] },
-        "status": { "enum": ["Confirmed", "Strongly suspected", "Potential", "Not reproducible", "False positive", "Blocked"] },
+        "id": {
+          "type": "string",
+          "pattern": "^SR-[0-9]{4}-[0-9]{3,}$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string"
+        },
+        "cwe": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^CWE-[0-9]+$"
+          }
+        },
+        "owasp": {
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low",
+            "Info"
+          ]
+        },
+        "severityRationale": {
+          "type": "string"
+        },
+        "cvssVector": {
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "High",
+            "Medium",
+            "Low"
+          ]
+        },
+        "status": {
+          "enum": [
+            "Confirmed",
+            "Strongly suspected",
+            "Potential",
+            "Not reproducible",
+            "False positive",
+            "Blocked"
+          ]
+        },
         "affected": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["path"],
+            "required": [
+              "path"
+            ],
             "additionalProperties": false,
             "properties": {
-              "path": { "type": "string" },
-              "startLine": { "type": "integer", "minimum": 1 },
-              "endLine": { "type": "integer", "minimum": 1 }
+              "path": {
+                "type": "string"
+              },
+              "startLine": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "endLine": {
+                "type": "integer",
+                "minimum": 1
+              }
             }
           }
         },
-        "evidence": { "type": "string", "description": "Code excerpt or observation; secrets must be redacted. Label tool output as such." },
-        "entryPoint": { "type": "string" },
-        "dataFlow": { "type": "array", "items": { "type": "string" } },
-        "preconditions": { "type": "array", "items": { "type": "string" } },
-        "attacker": { "type": "string" },
-        "scenario": { "type": "string" },
-        "impact": { "type": "string" },
-        "existingControls": { "type": "array", "items": { "type": "string" } },
-        "counterEvidence": { "type": "array", "items": { "type": "string" } },
-        "verification": { "type": "string", "description": "What was done and observed, and what was not done and why." },
-        "reproduction": { "type": "string" },
-        "remediation": { "type": "string" },
-        "regressionTest": { "type": "string" },
-        "references": { "type": "array", "items": { "type": "string" } },
-        "relatedFindings": { "type": "array", "items": { "type": "string" } }
+        "evidence": {
+          "type": "string",
+          "description": "Code excerpt or observation; secrets must be redacted. Label tool output as such."
+        },
+        "entryPoint": {
+          "type": "string"
+        },
+        "dataFlow": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attacker": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string"
+        },
+        "existingControls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterEvidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "verification": {
+          "type": "string",
+          "description": "What was done and observed, and what was not done and why."
+        },
+        "reproduction": {
+          "type": "string"
+        },
+        "remediation": {
+          "type": "string"
+        },
+        "regressionTest": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relatedFindings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   }
